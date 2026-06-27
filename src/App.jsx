@@ -1,83 +1,18 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
-import { supabase } from "./createClient";
 import Task from "./components/Task";
 import { IoFilter } from "react-icons/io5";
+import { useTasks } from "./hooks/useTasks";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState("");
-
-  // SELECT
-  async function fetchTasks() {
-    const { data, error } = await supabase
-      .from("tasks")
-      .select("*")
-      .order("concluded", { ascending: false })
-      .order("created_at", { ascending: true });
-    if (error) {
-      console.error("Erro ao buscar:", error);
-    } else {
-      setTasks(data);
-    }
-  }
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  // INSERT
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { data, error } = await supabase
-      .from("tasks")
-      .insert({ description: task, concluded: false });
-    if (error) {
-      console.log(error.message);
-      return;
-    }
-    setTask("");
-    fetchTasks();
-  };
-
-  // DELETE
-  const deleteTask = async (id) => {
-    const { error } = await supabase.from("tasks").delete().eq("id", id);
-    if (error) {
-      console.log(error.message);
-      return;
-    }
-    fetchTasks();
-  };
-
-  // UPDATE - TOGGLE
-  const toggleTask = async (id, currentStatus) => {
-    const newStatus = !currentStatus;
-    const { error } = await supabase
-      .from("tasks")
-      .update({ concluded: newStatus })
-      .eq("id", id);
-
-    if (error) {
-      console.log(error.message);
-      return;
-    }
-    fetchTasks();
-  };
-
-  // UPDATE- DESCRIPTION
-  const updateTask = async (id, newDescription) => {
-    const { error } = await supabase
-      .from("tasks")
-      .update({ description: newDescription })
-      .eq("id", id);
-
-    if (error) {
-      console.log(error.message);
-      return;
-    }
-    fetchTasks();
-  };
+  const {
+    tasks,
+    description,
+    setDescription,
+    deleteTask,
+    handleSubmit,
+    toggleTask,
+    updateTask,
+  } = useTasks();
 
   return (
     <div className="size-full min-h-screen items-center justify-center grid grid-cols-8 gap-4 bg-indigo-300">
@@ -94,8 +29,8 @@ function App() {
               className="bg-slate-50 border border-indigo-300 rounded text-sm p-0.5 col-span-4 max-h-10"
               type="task"
               placeholder="Digite a tarefa"
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
             <button
               className="border border-indigo-300 bg-slate-600 text-xs text-slate-50 col-span-2 p-0.5 max-h-10 hover:bg-slate-500 cursor-pointer"
