@@ -1,18 +1,10 @@
 import "./App.css";
-import Task from "./components/Task";
 import { IoFilter } from "react-icons/io5";
-import { useTasks } from "./hooks/useTasks";
+import TaskList from "./components/TaskList";
+import { useTaskContext } from "./contexts/taskContext";
 
 function App() {
-  const {
-    tasks,
-    description,
-    setDescription,
-    deleteTask,
-    handleSubmit,
-    toggleTask,
-    updateTask,
-  } = useTasks();
+  const { description, setDescription, handleSubmit } = useTaskContext();
 
   return (
     <div className="size-full min-h-screen items-center justify-center grid grid-cols-8 gap-4 bg-indigo-300">
@@ -27,7 +19,7 @@ function App() {
           >
             <input
               className="bg-slate-50 border border-indigo-300 rounded text-sm p-0.5 col-span-4 max-h-10"
-              type="task"
+              type="text"
               placeholder="Digite a tarefa"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -44,21 +36,7 @@ function App() {
               <IoFilter />
             </button>
           </div>
-          <div className="row-span-5">
-            {tasks.map((task) => (
-              <Task
-                key={task.id}
-                id={task.id}
-                description={task.description}
-                concluded={task.concluded}
-                onToggle={() => toggleTask(task.id, task.concluded)}
-                onDelete={() => deleteTask(task.id)}
-                onUpdate={(newDescription) =>
-                  updateTask(task.id, newDescription)
-                }
-              />
-            ))}
-          </div>
+          <TaskList />
         </div>
       </div>
     </div>
