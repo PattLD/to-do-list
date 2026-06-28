@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 export const useTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [description, setDescription] = useState("");
+  const [filter, setFilter] = useState("all"); // 👈
+  const [sort, setSort] = useState("oldest");
 
   // SELECT
   async function getTasks() {
@@ -58,17 +60,35 @@ export const useTasks = () => {
     getTasks();
   };
 
+  // FILTER & SORT
+  const visibleTasks = tasks
+    .filter((task) => {
+      if (filter === "completed") return task.concluded === true;
+      if (filter === "pending") return task.concluded === false;
+      return true;
+    })
+    .sort((a, b) => {
+      if (sort === "oldest")
+        return new Date(a.created_at) - new Date(b.created_at);
+      if (sort === "newest")
+        return new Date(b.created_at) - new Date(a.created_at);
+    });
+
   useEffect(() => {
     getTasks();
   }, []);
 
   return {
-    tasks,
+    tasks: visibleTasks,
     description,
     setDescription,
     handleSubmit,
     deleteTask,
     toggleTask,
     updateTask,
+    filter,
+    setFilter,
+    sort,
+    setSort,
   };
 };
