@@ -1,6 +1,7 @@
 import React from "react";
 import { useTaskContext } from "../contexts/taskContext";
 import Task from "./Task";
+import { formatDate } from "../utils/formatDate";
 
 export default function TaskList() {
   const { tasks } = useTaskContext();
@@ -13,6 +14,7 @@ export default function TaskList() {
           id={task.id}
           description={task.description}
           concluded={task.concluded}
+          dueDate={task.due_date}
         />
       ))}
     </div>

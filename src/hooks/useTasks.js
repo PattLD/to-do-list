@@ -60,6 +60,15 @@ export const useTasks = () => {
     getTasks();
   };
 
+  const updateDue = async (id, newDue) => {
+    const { error } = await taskServices.updateDue(id, newDue);
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+    getTasks();
+  };
+
   // FILTER & SORT
   const visibleTasks = tasks
     .filter((task) => {
@@ -90,5 +99,6 @@ export const useTasks = () => {
     setFilter,
     sort,
     setSort,
+    updateDue,
   };
 };

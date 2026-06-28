@@ -34,4 +34,12 @@ export const taskServices = {
       .eq("id", id);
     return { error };
   },
+
+  updateDue: async (id, newDue) => {
+    const { error } = await supabase
+      .from("tasks")
+      .update({ due_date: newDue })
+      .eq("id", id);
+    return { error };
+  },
 };

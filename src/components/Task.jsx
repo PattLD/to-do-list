@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { MdCalendarToday } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
 import TextareaAutosize from "react-textarea-autosize";
 import { useTaskContext } from "../contexts/taskContext";
+import MenuPickers from "./MenuPickers";
 
-export default function Task({ id, description, concluded }) {
+export default function Task({ id, description, concluded, dueDate }) {
   const [isEditingTask, setIsEditingTask] = useState(false);
   const [newDescription, setNewDescription] = useState(description || "");
   const { toggleTask, deleteTask, updateTask } = useTaskContext();
@@ -40,7 +40,7 @@ export default function Task({ id, description, concluded }) {
 
   //styles
   const descriptionTaskStyles =
-    "text-justify text-xs font-semibold text-slate-700 cursor-pointer text-wrap size-full hover:text-slate-500";
+    "text-justify text-sm font-semibold text-slate-700 cursor-pointer text-wrap size-full hover:text-slate-500";
 
   return (
     <div className="grid grid-cols-12 border rounded p-2 border-indigo-300 bg-slate-50">
@@ -81,10 +81,7 @@ export default function Task({ id, description, concluded }) {
             <TiDelete size={15} />
           </button>
         </div>
-
-        <div>
-          <MdCalendarToday className="bg-slate-300 border border-slate-300 text-slate-700 p-0.5 rounded w-6 h-4 hover:bg-slate-200 cursor-pointer" />
-        </div>
+        <MenuPickers dueDate={dueDate} id={id} />
       </div>
     </div>
   );
