@@ -19,7 +19,10 @@ export default function Dropdown({ icon, label, children }) {
         {icon}
       </button>
       {open && (
-        <div className="absolute top-full mt-1 flex flex-col bg-sky-950 text-blue-100 text-xs rounded border border-blue-50">
+        <div
+          className="absolute w-max top-full mt-1 flex flex-col bg-sky-950 text-blue-100 text-xs rounded border border-blue-50"
+          onClick={() => setOpen(false)}
+        >
           {children}
         </div>
       )}

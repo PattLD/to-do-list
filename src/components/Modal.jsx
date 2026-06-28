@@ -22,13 +22,13 @@ export default function Modal({ isOpen, onClose, onSave, children }) {
           {children}
           <div className="flex gap-2 justify-end">
             <button
-              className="px-3 py-2 text-xs border rounded hover:bg-slate-100"
+              className="px-3 py-2 text-xs border border-slate-700 rounded hover:bg-slate-100 cursor-pointer"
               onClick={onClose}
             >
               Cancelar
             </button>
             <button
-              className="px-3 py-2 text-xs bg-slate-700 text-white font-semibold rounded hover:bg-slate-500"
+              className="px-3 py-2 text-xs bg-slate-700 text-white font-semibold rounded hover:bg-slate-500 cursor-pointer"
               onClick={handleOnSave}
             >
               Confirmar

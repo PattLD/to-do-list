@@ -24,7 +24,7 @@ export default function MenuPickers({ id, dueDate }) {
         onSave={() => updateDue(id, newDue)}
       >
         <input
-          className="text-sm bg-slate-200 p-2 rounded border border-slate-300"
+          className="text-sm bg-slate-200 p-2 rounded border border-slate-300 cursor-pointer"
           type="date"
           value={newDue}
           onChange={(e) => setNewDue(e.target.value)}

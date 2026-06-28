@@ -18,9 +18,11 @@ export default function TaskTools() {
   const sortLabels = {
     oldest: null,
     newest: "Mais recente",
+    deadline_asc: "Prazo próximo",
+    deadline_desc: "Prazo distante",
   };
   return (
-    <div className="flex justify-end mx-4 gap-2">
+    <div className="flex justify-end gap-2">
       <Dropdown icon={<MdOutlineSort />} label={sortLabels[sort]}>
         <DropdownItem
           label="Mais antigo"
@@ -31,6 +33,16 @@ export default function TaskTools() {
           label="Mais recente"
           selected={sort === "newest"}
           onClick={() => setSort("newest")}
+        />
+        <DropdownItem
+          label="Prazo próximo"
+          selected={sort === "deadline_asc"}
+          onClick={() => setSort("deadline_asc")}
+        />
+        <DropdownItem
+          label="Prazo distante"
+          selected={sort === "deadline_desc"}
+          onClick={() => setSort("deadline_desc")}
         />
       </Dropdown>
       <Dropdown icon={<IoFilter />} label={filterLabels[filter]}>

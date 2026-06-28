@@ -81,6 +81,16 @@ export const useTasks = () => {
         return new Date(a.created_at) - new Date(b.created_at);
       if (sort === "newest")
         return new Date(b.created_at) - new Date(a.created_at);
+      if (sort === "deadline_asc") {
+        if (!a.due_date) return 1;
+        if (!b.due_date) return -1;
+        return new Date(a.due_date) - new Date(b.due_date);
+      }
+      if (sort === "deadline_desc") {
+        if (!a.due_date) return 1;
+        if (!b.due_date) return -1;
+        return new Date(b.due_date) - new Date(a.due_date);
+      }
     });
 
   useEffect(() => {
