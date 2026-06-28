@@ -2,7 +2,7 @@ import React from "react";
 import { useTaskContext } from "../contexts/taskContext";
 import Task from "./Task";
 
-const TaskList = () => {
+export default function TaskList() {
   const { tasks } = useTaskContext();
 
   return (
@@ -17,6 +17,4 @@ const TaskList = () => {
       ))}
     </div>
   );
-};
-
-export default TaskList;
+}
